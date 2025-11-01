@@ -66,7 +66,146 @@ export default async function ProjectDetail(
         </>
       ),
     },
-    // add other projects here…
+
+    "layoffs-sql-pipeline": {
+  metrics: [
+    { label: "Rows processed", value: "100% cleaned (deduped/null-safe)" },
+    { label: "Key views", value: "YoY trends, industries, top companies" },
+  ],
+  
+  body: (
+    <>
+      <p>
+        Built a reproducible SQL pipeline: raw → staging → clean tables. Standardized columns,
+        handled nulls/duplicates, and added indexes for fast exploratory queries.
+      </p>
+      <ul>
+        <li>Staging: preserve raw; add audit columns (ingested_at, source).</li>
+        <li>Transforms: trim/normalize text, parse dates, coerce numeric fields.</li>
+        <li>Insights: company/industry aggregations, rolling 3-month trends.</li>
+      </ul>
+      <p className="opacity-80 text-sm">
+      </p>
+    </>
+  ),
+},
+
+"grocery-guardian": {
+  metrics: [
+    { label: "Core flows", value: "Scan → Check → Alternatives → Chat" },
+    { label: "Auth", value: "Google & Apple" },
+  ],
+  body: (
+    <>
+      <p>
+        Web app for safer grocery shopping with allergies. Users log in, scan a product barcode,
+        get immediate allergen checks (including synonyms), see safe alternatives, and can ask the
+        AI assistant for recipe or nutrition help.
+      </p>
+      <ul>
+        <li><strong>Barcode Scanning:</strong> product lookup and allergen match.</li>
+        <li><strong>Allergen Safety Checks:</strong> synonym-aware detection with clear alerts.</li>
+        <li><strong>Alternatives:</strong> safe product suggestions when flagged.</li>
+        <li><strong>AI Chatbot:</strong> recipes and nutrition guidance.</li>
+        <li><strong>Auth:</strong> Google & Apple login; data stored in Azure SQL.</li>
+      </ul>
+      <p className="mt-3">
+        <a href="https://youtube.com/shorts/cQiBTsUjWuo?feature=share" className="underline" target="_blank" rel="noreferrer">
+          Watch the demo video
+        </a>
+      </p>
+    </>
+  ),
+},
+
+"ai-rota-assistant": {
+  metrics: [
+    { label: "Teams", value: "SMEs (retail/restaurant)" },
+    { label: "Goal", value: "Time saved + fewer swaps" },
+    { label: "Pilot status", value: "Early testing" },
+  ],
+  
+  body: (
+    <>
+      <p>
+        Pilot exploring rota automation through WhatsApp requests captured by Zapier, validated with
+        business rules (availability, max hours, overtime), then synced to a central rota (sheet/API).
+        Managers get quick approvals; employees get confirmations and coverage visibility.
+      </p>
+      <ul>
+        <li><strong>Capture:</strong> WhatsApp → Zapier webhook parses date, time, role, location.</li>
+        <li><strong>Validate:</strong> check availability, conflicts, and hour caps; ask clarifying Qs if needed.</li>
+        <li><strong>Sync:</strong> write shift to rota store; notify manager and employee with status.</li>
+        <li><strong>Metrics:</strong> time saved/week, swap frequency, approval latency.</li>
+      </ul>
+      <p className="opacity-80 text-sm">Future: auto-suggest coverage when gaps appear; manager dashboard for exceptions.</p>
+    </>
+  ),
+},
+
+"therapist-client-management": {
+  metrics: [
+    { label: "Roles", value: "Therapist, Client, Admin" },
+    { label: "Core flow", value: "Create → schedule → record notes" },
+  ],
+  body: (
+    <>
+      <p>
+        A small full-stack app to manage schedules and records. Focused on a clean, low-friction CRUD
+        flow and an obvious separation of roles.
+      </p>
+      <ul>
+        <li><strong>Schema:</strong> therapists, clients, sessions, notes.</li>
+        <li><strong>Validation:</strong> dates, conflicts, required fields.</li>
+        <li><strong>UX:</strong> minimal forms, keyboard shortcuts, accessible labels.</li>
+      </ul>
+    </>
+  ),
+},
+
+"travel-blog": {
+  metrics: [
+    { label: "Auth", value: "JWT + protected routes" },
+    { label: "CRUD", value: "Posts & comments" },
+  ],
+  body: (
+    <>
+      <p>
+        A classic blog with authentication and a simple editorial flow. Built to practice auth,
+        protected routes, and a tidy data model for posts and comments.
+      </p>
+      <ul>
+        <li><strong>Editor:</strong> basic formatting, draft → publish.</li>
+        <li><strong>Lists:</strong> paginated index to avoid heavy payloads.</li>
+        <li><strong>Comments:</strong> nested list with simple moderation.</li>
+      </ul>
+    </>
+  ),
+},
+
+"music-management": {
+  metrics: [
+    { label: "Records", value: "5,000+" },
+    { label: "Goal", value: "Fast CRUD & search" },
+  ],
+  body: (
+    <>
+      <p>
+        Catalog manager for a large music library. Prioritizes responsive list views,
+        quick edits, and predictable keyboard-friendly workflows.
+      </p>
+      <ul>
+        <li><strong>Search:</strong> server-side pagination + indexed queries.</li>
+        <li><strong>Batch:</strong> multi-select, bulk updates.</li>
+        <li><strong>Accessibility:</strong> focus management, ARIA labels.</li>
+      </ul>
+    </>
+  ),
+},
+
+
+    // add other projects
+
   };
 
   const extra = extras[slug];
