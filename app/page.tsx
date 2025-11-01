@@ -4,8 +4,7 @@ import Navbar from "@/components/navbar";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
-
-
+import ContactForm from "@/components/contact-form"
 import { projects as allProjects } from "@/data/projects"
 import { experience as exp } from "@/data/experience"
 import type { Project } from "@/types/content";
@@ -141,6 +140,8 @@ export default function Page() {
           <a href="https://www.linkedin.com/in/isaac-elue-122182358">LinkedIn</a>
           <a href="https://github.com/IsaacElue">GitHub</a>
           <a href="/cv.pdf">Download CV</a>
+          <ContactForm />
+
         </div>
       </section>
 
