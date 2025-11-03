@@ -3,6 +3,11 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/navbar";
 import { projects } from "@/data/projects";
 import type { ReactNode } from "react";
+import SideToc from "@/components/side-toc";
+import ScrollProgress from "@/components/scroll-progress";
+import Magnetic from "@/components/magnetic";
+
+
 
 // If you statically generate detail pages:
 export function generateStaticParams(): { slug: string }[] {
@@ -204,6 +209,7 @@ export default async function ProjectDetail(
 
   return (
     <main>
+      <ScrollProgress />
       <Navbar />
       <script
         type="application/ld+json"
@@ -211,86 +217,80 @@ export default async function ProjectDetail(
       />
 
       <section className="container py-14 md:py-20">
-        {/* ----- Centered primary copy column ----- */}
-        <div className="max-w-3xl mx-auto">
-          <p className="text-sm opacity-70">{proj.year}</p>
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">{proj.title}</h1>
-          <p className="mt-3 text-neutral-600 dark:text-neutral-300">{proj.blurb}</p>
+  <div className="grid lg:grid-cols-[1fr_280px] gap-8">
+    {/* Main column */}
+    <div>
+      <div className="max-w-3xl">
+        <p className="text-sm opacity-70">{proj.year}</p>
+        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">{proj.title}</h1>
+        <p className="mt-3 text-neutral-600 dark:text-neutral-300">{proj.blurb}</p>
 
-          {/* Stack */}
-          <div className="mt-4 flex flex-wrap gap-2">
-            {(proj.stack ?? []).map((t) => (
-              <span
-                key={t}
-                className="rounded-full border border-neutral-200/60 dark:border-neutral-800 px-3 py-1 text-sm opacity-80"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-
-          {/* Highlights */}
-          {proj.highlights?.length ? (
-            <div className="mt-10">
-              <h2 className="text-xl font-medium tracking-tight">Highlights</h2>
-              <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
-                {proj.highlights.map((h) => <li key={h}>{h}</li>)}
-              </ul>
-            </div>
-          ) : null}
-
-          {/* KPIs */}
-          {proj.kpis?.length ? (
-            <div className="mt-10">
-              <h2 className="text-xl font-medium tracking-tight">Outcomes & KPIs</h2>
-              <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
-                {proj.kpis.map((k) => <li key={k}>{k}</li>)}
-              </ul>
-            </div>
-          ) : null}
-
-          {/* Challenges */}
-          {proj.challenges?.length ? (
-            <div className="mt-10">
-              <h2 className="text-xl font-medium tracking-tight">Challenges</h2>
-              <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
-                {proj.challenges.map((c) => <li key={c}>{c}</li>)}
-              </ul>
-            </div>
-          ) : null}
-
-          {/* Links */}
-          {(proj.repo || proj.live) ? (
-            <div className="mt-10 flex flex-wrap gap-3">
-              {proj.repo && (
-                <a
-                  href={proj.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Open GitHub repository for ${proj.title}`}
-                  className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900"
-                >
-                  GitHub
-                </a>
-              )}
-              {proj.live && (
-                <a
-                  href={proj.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`View live demo of ${proj.title}`}
-                  className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900"
-                >
-                  Live Demo
-                </a>
-              )}
-            </div>
-          ) : null}
+        {/* Stack */}
+        <div className="mt-4 flex flex-wrap gap-2">
+          {(proj.stack ?? []).map((t) => (
+            <span key={t} className="rounded-full border border-neutral-200/60 dark:border-neutral-800 px-3 py-1 text-sm opacity-80">
+              {t}
+            </span>
+          ))}
         </div>
 
-        {/* ----- Extras: wider metrics/body/gallery with smart widths ----- */}
+        {/* Highlights */}
+        {proj.highlights?.length ? (
+          <div id="highlights" className="mt-10">
+            <h2 className="text-xl font-medium tracking-tight">Highlights</h2>
+            <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
+              {proj.highlights.map((h) => <li key={h}>{h}</li>)}
+            </ul>
+          </div>
+        ) : null}
+
+        {/* KPIs */}
+        {proj.kpis?.length ? (
+          <div id="kpis" className="mt-10">
+            <h2 className="text-xl font-medium tracking-tight">Outcomes & KPIs</h2>
+            <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
+              {proj.kpis.map((k) => <li key={k}>{k}</li>)}
+            </ul>
+          </div>
+        ) : null}
+
+        {/* Challenges */}
+        {proj.challenges?.length ? (
+          <div id="challenges" className="mt-10">
+            <h2 className="text-xl font-medium tracking-tight">Challenges</h2>
+            <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
+              {proj.challenges.map((c) => <li key={c}>{c}</li>)}
+            </ul>
+          </div>
+        ) : null}
+
+        {/* Links */}
+        {(proj.repo || proj.live) ? (
+  <div id="links" className="mt-10 flex flex-wrap gap-3">
+    {proj.repo && (
+      <Magnetic>
+        <a href={proj.repo} target="_blank" rel="noopener noreferrer"
+           aria-label={`Open GitHub repository for ${proj.title}`}
+           className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900">
+          GitHub
+        </a>
+      </Magnetic>
+    )}
+    {proj.live && (
+      <Magnetic>
+        <a href={proj.live} target="_blank" rel="noopener noreferrer"
+           aria-label={`View live demo of ${proj.title}`}
+           className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900">
+          Live Demo
+        </a>
+      </Magnetic>
+    )}
+  </div>
+) : null}
+
+        {/* Extras */}
         {extra?.metrics?.length ? (
-          <div className="mt-12 max-w-4xl mx-auto">
+          <div id="metrics" className="mt-12 max-w-4xl">
             <h2 className="text-xl font-medium tracking-tight">Metrics</h2>
             <div className="mt-3 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
               {extra.metrics.map((m) => (
@@ -304,7 +304,7 @@ export default async function ProjectDetail(
         ) : null}
 
         {extra?.body ? (
-          <div className="mt-12 max-w-3xl mx-auto">
+          <div id="case" className="mt-12 max-w-3xl">
             <h2 className="text-xl font-medium tracking-tight">Case Study</h2>
             <div className="mt-3 prose prose-neutral dark:prose-invert max-w-none">
               {extra.body}
@@ -313,14 +313,11 @@ export default async function ProjectDetail(
         ) : null}
 
         {extra?.images?.length ? (
-          <div className="mt-12 max-w-5xl mx-auto">
+          <div id="gallery" className="mt-12 max-w-5xl">
             <h2 className="text-xl font-medium tracking-tight">Gallery</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {extra.images.map((img) => (
-                <div
-                  key={img.src}
-                  className="overflow-hidden rounded-2xl border border-neutral-200/60 dark:border-neutral-800"
-                >
+                <div key={img.src} className="overflow-hidden rounded-2xl border border-neutral-200/60 dark:border-neutral-800">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={img.src} alt={img.alt} className="w-full h-auto object-cover" />
                 </div>
@@ -328,7 +325,24 @@ export default async function ProjectDetail(
             </div>
           </div>
         ) : null}
-      </section>
+      </div>
+    </div>
+
+    {/* TOC column */}
+    <SideToc
+      items={[
+        { id: "highlights", label: "Highlights" },
+        { id: "kpis", label: "Outcomes & KPIs" },
+        { id: "challenges", label: "Challenges" },
+        ...(extra?.metrics?.length ? [{ id: "metrics", label: "Metrics" }] : []),
+        ...(extra?.body ? [{ id: "case", label: "Case Study" }] : []),
+        ...(extra?.images?.length ? [{ id: "gallery", label: "Gallery" }] : []),
+        ...(proj.repo || proj.live ? [{ id: "links", label: "Links" }] : []),
+      ]}
+    />
+  </div>
+</section>
+
     </main>
   );
 }

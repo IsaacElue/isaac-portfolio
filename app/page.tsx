@@ -7,6 +7,7 @@ import { experience as exp } from "@/data/experience"
 import type { Project } from "@/types/content";
 import SpotlightBG from "../components/spotlight-bg";
 import HeroName from "@/components/hero-name";
+import Magnetic from "@/components/magnetic";
 
 
 const projects = allProjects.slice(0, 2);
@@ -37,21 +38,19 @@ export default function Page() {
       </p>
 
       <div className="mt-6 flex items-center justify-center gap-3">
-        <a
-          href="/cv.pdf"
-          aria-label="Download my CV as PDF"
-          className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900 shadow-soft"
-        >
-          Download CV
-        </a>
-        <a
-          href="/contact"
-          className="rounded-2xl px-4 py-2 text-sm border border-transparent hover:underline"
-          aria-label="Go to contact page"
-        >
-          Contact →
-        </a>
-      </div>
+  <Magnetic>
+    <a href="/cv.pdf" aria-label="Download my CV as PDF"
+       className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900 shadow-soft">
+      Download CV
+    </a>
+  </Magnetic>
+  <Magnetic>
+    <a href="/contact" aria-label="Go to contact page"
+       className="rounded-2xl px-4 py-2 text-sm border border-transparent hover:underline">
+      Contact →
+    </a>
+  </Magnetic>
+</div>
     </div>
   </div>
 </section>
@@ -61,6 +60,7 @@ export default function Page() {
       {/* Projects */}
 <section id="projects" className="container py-14 md:py-20">
   <div className="max-w-4xl mx-auto text-center">
+    
     <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">Projects</h2>
     <p className="mt-2 text-neutral-600 dark:text-neutral-300">
       Selected builds and experiments.
