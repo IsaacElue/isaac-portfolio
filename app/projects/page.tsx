@@ -2,7 +2,6 @@
 import Navbar from "@/components/navbar";
 import { projects } from "@/data/projects";
 import Link from "next/link";
-
 export const metadata = { title: "Projects" };
 
 export default function ProjectsIndex() {

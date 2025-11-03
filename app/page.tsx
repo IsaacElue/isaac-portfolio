@@ -2,12 +2,12 @@
 
 import Navbar from "@/components/navbar";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
-import ContactForm from "@/components/contact-form"
 import { projects as allProjects } from "@/data/projects"
 import { experience as exp } from "@/data/experience"
 import type { Project } from "@/types/content";
+import SpotlightBG from "../components/spotlight-bg";
+import HeroName from "@/components/hero-name";
+
 
 const projects = allProjects.slice(0, 2);
 const experience = exp;
@@ -19,40 +19,44 @@ export default function Page() {
     <main>
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b border-neutral-200/60 dark:border-neutral-800">
-  <div className="absolute inset-0 bg-grid" />
-  <div className="container relative py-24 md:py-32"> {/* was 20/28 */}
-          <motion.h1
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-4xl/tight md:text-6xl/tight font-semibold tracking-tight"
-          >
-            Isaac Elue
-          </motion.h1>
+      {/* HERO */}
+<section className="relative overflow-hidden border-b border-neutral-200/60 dark:border-neutral-800">
+  {/* subtle grid + spotlight */}
+  <div className="absolute inset-0 bg-grid opacity-[0.18] dark:opacity-[0.12]" />
+  <SpotlightBG />
 
-          <p className="mt-4 max-w-2xl text-neutral-600 dark:text-neutral-300">
-            CS & Software Engineering student focused on <strong>product</strong>, <strong>data</strong>, and <strong>UX</strong>. I build practical tools and clean interfaces.
-            Incoming APM Intern at IBM (Feb–Aug 2026).
-            </p>
+  <div className="container relative py-24 md:py-32">
+    <div className="max-w-3xl mx-auto text-center">
+      <div className="glow-mask mx-auto">
+        <HeroName />
+      </div>
 
-          <div className="mt-6 flex gap-3">
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-1 rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900 transition"
-            >
-              View projects <ArrowUpRight size={16} />
-            </a>
-            <a
-              href="/contact"
-              className="inline-flex items-center gap-1 rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900 transition"
-            >
-              Contacts
-            </a>
-          </div>
-        </div>
-      </section>
+      <p className="mt-4 text-neutral-600 dark:text-neutral-300 text-balance">
+        CS & Software Engineering student focused on <b>product</b>, <b>data</b>, and <b>UX</b>. I build
+        practical tools and clean interfaces. Incoming APM Intern at IBM (Feb–Aug 2026).
+      </p>
+
+      <div className="mt-6 flex items-center justify-center gap-3">
+        <a
+          href="/cv.pdf"
+          aria-label="Download my CV as PDF"
+          className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900 shadow-soft"
+        >
+          Download CV
+        </a>
+        <a
+          href="/contact"
+          className="rounded-2xl px-4 py-2 text-sm border border-transparent hover:underline"
+          aria-label="Go to contact page"
+        >
+          Contact →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
       {/* Projects */}
       <section id="projects" className="container py-14 md:py-20">
