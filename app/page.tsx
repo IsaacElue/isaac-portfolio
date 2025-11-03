@@ -21,8 +21,8 @@ export default function Page() {
 
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-neutral-200/60 dark:border-neutral-800">
-        <div className="absolute inset-0 bg-grid" />
-        <div className="container relative py-20 md:py-28">
+  <div className="absolute inset-0 bg-grid" />
+  <div className="container relative py-24 md:py-32"> {/* was 20/28 */}
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -45,10 +45,10 @@ export default function Page() {
               View projects <ArrowUpRight size={16} />
             </a>
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center gap-1 rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900 transition"
             >
-              Contact
+              Contacts
             </a>
           </div>
         </div>
@@ -131,19 +131,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="container py-14 md:py-20 border-t border-neutral-200/60 dark:border-neutral-800">
-        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-3">Contact</h2>
-        <p className="text-neutral-600 dark:text-neutral-300">Open to internships, product work, and collaborations.</p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          <a href="mailto:elueisaac14@gmail.com">Email</a>
-          <a href="https://www.linkedin.com/in/isaac-elue-122182358">LinkedIn</a>
-          <a href="https://github.com/IsaacElue">GitHub</a>
-          <a href="/cv.pdf">Download CV</a>
-          <ContactForm />
-
-        </div>
-      </section>
 
       <footer className="border-t border-neutral-200/60 dark:border-neutral-800 py-10">
         <div className="container text-sm opacity-70">© {new Date().getFullYear()} Isaac Elue</div>

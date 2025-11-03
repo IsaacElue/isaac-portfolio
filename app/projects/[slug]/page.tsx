@@ -265,26 +265,33 @@ export default async function ProjectDetail(
         ) : null}
 
         {/* Links */}
-        {(proj.repo || proj.live) ? (
-          <div className="mt-8 flex flex-wrap gap-3">
-            {proj.repo && (
-              <a
-                href={proj.repo}
-                className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900"
-              >
-                GitHub
-              </a>
-            )}
-            {proj.live && (
-              <a
-                href={proj.live}
-                className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900"
-              >
-                Live Demo
-              </a>
-            )}
-          </div>
-        ) : null}
+{(proj.repo || proj.live) ? (
+  <div className="mt-8 flex flex-wrap gap-3">
+    {proj.repo && (
+      <a
+        href={proj.repo}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open GitHub repository for ${proj.title}`}
+        className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900"
+      >
+        GitHub
+      </a>
+    )}
+    {proj.live && (
+      <a
+        href={proj.live}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`View live demo of ${proj.title}`}
+        className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900"
+      >
+        Live Demo
+      </a>
+    )}
+  </div>
+) : null}
+
 
         {/* Extra metrics / case content */}
         {extra?.metrics?.length ? (

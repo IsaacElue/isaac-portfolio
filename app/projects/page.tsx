@@ -20,12 +20,14 @@ export default function ProjectsIndex() {
             <Link
               key={p.slug}
               href={`/projects/${p.slug}`}
-              className="group rounded-2xl border border-neutral-200/60 dark:border-neutral-800 p-5 hover:bg-neutral-50 dark:hover:bg-neutral-900 transition"
-            >
+              className="group rounded-2xl border border-neutral-200/60 dark:border-neutral-800 p-5 transition
+hover:-translate-y-0.5 hover:shadow-sm hover:bg-neutral-50/70 dark:hover:bg-neutral-900/60"
+>
               <div className="flex items-center justify-between">
-                <h3 className="font-medium tracking-tight">{p.title}</h3>
-                <span className="text-xs opacity-60">{p.year}</span>
-              </div>
+  <h3 className="font-medium tracking-tight">{p.title}</h3>
+  <span className="text-xs opacity-60 group-hover:opacity-80 transition">{p.year}</span>
+</div>
+
               <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-300">{p.blurb}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {p.stack.slice(0, 4).map((t) => (

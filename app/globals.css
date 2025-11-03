@@ -15,3 +15,10 @@ body { isolation: isolate; }
   background-size: 20px 20px;
   opacity: .06;
 }
+
+
+/* Slightly larger default line-height for readability */
+.prose { line-height: 1.65; }
+
+/* Smooth anchor scrolling for #contact etc. */
+html { scroll-behavior: smooth; }
