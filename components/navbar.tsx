@@ -16,7 +16,8 @@ const items = [
 export default function Navbar() {
   const pathname = usePathname();
   return (
-    <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/50 dark:supports-[backdrop-filter]:bg-black/40 border-b border-neutral-200/60 dark:border-neutral-800">
+    <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-black/40 border-b border-neutral-200/60 dark:border-neutral-800">
+
       <nav className="container flex h-14 items-center justify-between">
         <Link href="/" className="font-semibold tracking-tight">IE</Link>
         <div className="flex items-center gap-2 text-sm">
