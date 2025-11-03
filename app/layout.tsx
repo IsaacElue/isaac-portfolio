@@ -1,37 +1,15 @@
 // app/layout.tsx
-import type { Metadata } from "next"
-import "./globals.css"
-import { cn } from "@/lib/utils"
-import { Inter } from "next/font/google"
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
-// app/layout.tsx
+import type { Metadata } from "next";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import SpotlightBG from "@/components/spotlight-bg";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://isaacelue.dev"),
-  title: {
-    default: "Isaac Elue — Portfolio",
-    template: "%s — Isaac Elue",
-  },
-  description: "Projects, experience, and writing by Isaac Elue.",
-  openGraph: {
-    type: "website",
-    url: "https://isaacelue.dev",
-    title: "Isaac Elue — Portfolio",
-    description: "Projects, experience, and writing by Isaac Elue.",
-    images: [{ url: "/opengraph-image" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Isaac Elue — Portfolio",
-    description: "Projects, experience, and writing by Isaac Elue.",
-    images: ["/opengraph-image"],
-  },
-}
+export const metadata: Metadata = { /* ...unchanged... */ };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -47,18 +25,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   if (d) document.documentElement.classList.add('dark');
                 } catch (e) {}
               })();
-            `.trim(),
+            `,
           }}
         />
       </head>
-      <body className={cn(inter.className, "min-h-dvh bg-white dark:bg-neutral-950")} style={{ isolation: "isolate" }}>
-        {children}
 
-        {/* Vercel Analytics + Speed Insights */}
-        <Analytics />
-        <SpeedInsights />
+      {/* 👉 Set default text color for both themes */}
+      <body
+        className={cn(
+          inter.className,
+          "min-h-dvh bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100"
+          // optional: add bg-grid here if you want dots sitewide
+          // "bg-grid"
+        )}
+      >
+        {/* Global spotlight under content */}
+        <SpotlightBG mode="fixed" size={600} strength={0.16} />
+
+        <div className="relative z-10">
+          {children}
+          <Analytics />
+          <SpeedInsights />
+        </div>
       </body>
     </html>
-  )
+  );
 }
-

@@ -27,15 +27,14 @@ export default function SpotlightBG({
 
   const positionClass = mode === "fixed" ? "fixed" : "absolute";
 
-  return (
-    <div
-      aria-hidden
-      className={`pointer-events-none ${positionClass} inset-0 -z-10`}
-      style={{
-        background: `radial-gradient(${size}px ${Math.round(
-          size * 0.5
-        )}px at ${pos.x}% ${pos.y}%, rgba(110,110,255,${strength}), transparent 60%)`,
-      }}
-    />
-  );
+return (
+  <div
+    aria-hidden
+    className={`pointer-events-none ${positionClass} inset-0 z-0`}  // was -z-10
+    style={{
+      background: `radial-gradient(${size}px ${Math.round(size * 0.5)}px at ${pos.x}% ${pos.y}%,
+        rgba(110,110,255,${strength}), transparent 60%)`,
+    }}
+  />
+);
 }

@@ -21,16 +21,18 @@ export default function Page() {
       <Navbar />
 
       {/* HERO */}
-<section className="relative overflow-hidden border-b border-neutral-200/60 dark:border-neutral-800">
+<section className="relative overflow-visible border-b border-neutral-200/60 dark:border-neutral-800">
+
   {/* subtle grid + spotlight */}
   <div className="absolute inset-0 bg-grid opacity-[0.18] dark:opacity-[0.12]" />
-  <SpotlightBG />
+  
 
   <div className="container relative py-24 md:py-32">
     <div className="max-w-3xl mx-auto text-center">
-      <div className="glow-mask mx-auto">
-        <HeroName />
-      </div>
+      <div className="glow-mask mx-auto overflow-visible pb-4">
+  <HeroName />
+</div>
+
 
       <p className="mt-4 text-neutral-600 dark:text-neutral-300 text-balance">
         CS & Software Engineering student focused on <b>product</b>, <b>data</b>, and <b>UX</b>. I build

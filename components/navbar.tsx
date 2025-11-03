@@ -15,29 +15,46 @@ const items = [
 
 export default function Navbar() {
   const pathname = usePathname();
+
   return (
     <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-black/40 border-b border-neutral-200/60 dark:border-neutral-800">
+      {/* grid keeps logo perfectly centered while actions stay on the right */}
+      <nav className="container grid h-14 items-center grid-cols-[1fr_auto_1fr]">
+        {/* left spacer keeps center exact, add CTA later if you want */}
+        <div className="justify-self-start" />
 
-      <nav className="container flex h-14 items-center justify-between">
-        <Link href="/" className="font-semibold tracking-tight">IE</Link>
-        <div className="flex items-center gap-2 text-sm">
+        {/* centered logo */}
+        <Link
+          href="/"
+          aria-label="Home"
+          className="justify-self-center font-extrabold tracking-tight text-lg md:text-xl
+                     bg-gradient-to-r from-indigo-400 via-sky-400 to-violet-500 bg-clip-text text-transparent
+                     hover:opacity-90 transition logo-gradient select-none"
+        >
+          I<span className="font-light">E</span>
+        </Link>
+
+        {/* right-side nav items */}
+        <div className="justify-self-end flex items-center gap-2 text-sm">
           {items.map((it) => {
-            const isActive = !it.hash && (it.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(it.href));
+            const isActive =
+              !it.hash && (it.href === "/" ? pathname === "/" : pathname.startsWith(it.href));
             return (
               <Link
                 key={it.label}
                 href={it.href}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "relative rounded-xl px-2 py-1 opacity-80 hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400/50 dark:focus-visible:ring-neutral-600/50 transition",
+                  "relative rounded-xl px-2 py-1 opacity-80 hover:opacity-100 focus:outline-none",
+                  "focus-visible:ring-2 focus-visible:ring-neutral-400/50 dark:focus-visible:ring-neutral-600/50",
+                  "transition"
                 )}
               >
                 <span>{it.label}</span>
                 <span
                   className={cn(
-                    "pointer-events-none absolute inset-x-1 -bottom-[6px] h-[2px] rounded-full bg-neutral-900/80 dark:bg-neutral-100/80 transition-opacity",
+                    "pointer-events-none absolute inset-x-1 -bottom-[6px] h-[2px] rounded-full",
+                    "bg-neutral-900/80 dark:bg-neutral-100/80 transition-opacity",
                     isActive ? "opacity-100" : "opacity-0"
                   )}
                 />

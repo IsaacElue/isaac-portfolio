@@ -35,3 +35,15 @@ html { scroll-behavior: smooth; }
   mask-image: radial-gradient(50% 50% at 50% 30%, #000 60%, transparent 100%);
   -webkit-mask-image: radial-gradient(50% 50% at 50% 30%, #000 60%, transparent 100%);
 }
+
+
+/* in globals.css */
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.logo-gradient {
+  background-size: 200% 200%;
+  animation: gradient-move 6s ease infinite;
+}
