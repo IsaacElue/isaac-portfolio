@@ -1,4 +1,3 @@
-// app/projects/page.tsx
 import Navbar from "@/components/navbar";
 import { projects } from "@/data/projects";
 import Link from "next/link";
@@ -9,15 +8,15 @@ export default function ProjectsIndex() {
   return (
     <main>
       <Navbar />
-      <section className="container py-14 md:py-20">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="container py-16 md:py-24">
+        <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Projects</h1>
-          <p className="mt-3 text-neutral-600 dark:text-neutral-300">
+          <p className="mt-2 text-neutral-600 dark:text-neutral-300">
             Selected work across data, product, and AI.
           </p>
         </div>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-2">
+        <div className="mt-10 grid gap-4 md:grid-cols-2 max-w-5xl mx-auto">
           {projects.map((p) => (
             <Link
               key={p.slug}
@@ -31,15 +30,10 @@ export default function ProjectsIndex() {
                 </h3>
                 <span className="text-xs opacity-60">{p.year}</span>
               </div>
-
               <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-300">{p.blurb}</p>
-
               <div className="mt-3 flex flex-wrap gap-2">
                 {p.stack.slice(0, 4).map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full border border-neutral-200/60 dark:border-neutral-800 px-2 py-1 text-xs opacity-80"
-                  >
+                  <span key={t} className="rounded-full border border-neutral-200/60 dark:border-neutral-800 px-2 py-1 text-xs opacity-80">
                     {t}
                   </span>
                 ))}

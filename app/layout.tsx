@@ -13,30 +13,36 @@ export const metadata: Metadata = { /* ...unchanged... */ };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var t = localStorage.getItem('theme');
-                  var d = t ? (t === 'dark') : window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  if (d) document.documentElement.classList.add('dark');
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
+  <script
+    dangerouslySetInnerHTML={{
+      __html: `
+        (function() {
+          try {
+            var t = localStorage.getItem('theme');
+            var d = t ? (t === 'dark') : window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (d) document.documentElement.classList.add('dark');
+            document.documentElement.classList.add(d ? 'dark' : 'light');
+          } catch (e) {}
+        })();
+      `,
+    }}
+  />
+  <style>
+    {`
+      html { visibility: hidden; }
+      html.light, html.dark { visibility: visible; }
+    `}
+  </style>
+</head>
+
 
       {/* 👉 Set default text color for both themes */}
       <body
         className={cn(
           inter.className,
           "min-h-dvh bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100"
-          // optional: add bg-grid here if you want dots sitewide
-          // "bg-grid"
         )}
       >
         {/* Global spotlight under content */}

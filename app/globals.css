@@ -47,3 +47,14 @@ html { scroll-behavior: smooth; }
   background-size: 200% 200%;
   animation: gradient-move 6s ease infinite;
 }
+/* in globals.css */
+.section { @apply container py-16 md:py-24; }
+.section-head { @apply max-w-3xl mx-auto text-center; }
+.section-grid { @apply max-w-5xl mx-auto; }
+
+/* Only animate on client, never in SSR render */
+@media (prefers-reduced-motion: no-preference) {
+  .logo-gradient {
+    animation: gradient-move 6s ease infinite;
+  }
+}

@@ -7,14 +7,12 @@ import SideToc from "@/components/side-toc";
 import ScrollProgress from "@/components/scroll-progress";
 import Magnetic from "@/components/magnetic";
 
-
-
-// If you statically generate detail pages:
+// Build static paths
 export function generateStaticParams(): { slug: string }[] {
   return projects.map((p) => ({ slug: p.slug }));
 }
 
-// ✅ params is a Promise in new Next versions — await it
+// params is a Promise in latest Next
 export default async function ProjectDetail(
   { params }: { params: Promise<{ slug: string }> }
 ) {
@@ -31,7 +29,6 @@ export default async function ProjectDetail(
     description: proj.blurb,
   };
 
-  // Extra content per project (metrics, case body, images)
   const extras: Record<
     string,
     {
@@ -112,7 +109,12 @@ export default async function ProjectDetail(
             <li><strong>Auth:</strong> Google & Apple login; data stored in Azure SQL.</li>
           </ul>
           <p className="mt-3">
-            <a href="https://youtube.com/shorts/cQiBTsUjWuo?feature=share" className="underline" target="_blank" rel="noreferrer">
+            <a
+              href="https://youtube.com/shorts/cQiBTsUjWuo?feature=share"
+              className="underline"
+              target="_blank"
+              rel="noreferrer"
+            >
               Watch the demo video
             </a>
           </p>
@@ -216,133 +218,143 @@ export default async function ProjectDetail(
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <section className="container py-14 md:py-20">
-  <div className="grid lg:grid-cols-[1fr_280px] gap-8">
-    {/* Main column */}
-    <div>
-      <div className="max-w-3xl">
-        <p className="text-sm opacity-70">{proj.year}</p>
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">{proj.title}</h1>
-        <p className="mt-3 text-neutral-600 dark:text-neutral-300">{proj.blurb}</p>
+      <section className="container py-16 md:py-24">
+        {/* two-column layout: content + sticky toc */}
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px] max-w-6xl mx-auto">
+          {/* LEFT: content */}
+          <div>
+            {/* top copy */}
+            <div className="max-w-3xl mx-auto">
+              <p className="text-sm opacity-70">{proj.year}</p>
+              <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">{proj.title}</h1>
+              <p className="mt-3 text-neutral-600 dark:text-neutral-300">{proj.blurb}</p>
 
-        {/* Stack */}
-        <div className="mt-4 flex flex-wrap gap-2">
-          {(proj.stack ?? []).map((t) => (
-            <span key={t} className="rounded-full border border-neutral-200/60 dark:border-neutral-800 px-3 py-1 text-sm opacity-80">
-              {t}
-            </span>
-          ))}
+              <div className="mt-4 flex flex-wrap gap-2">
+                {(proj.stack ?? []).map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-neutral-200/60 dark:border-neutral-800 px-3 py-1 text-sm opacity-80"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+
+              {proj.highlights?.length ? (
+                <div id="highlights" className="mt-10">
+                  <h2 className="text-xl font-medium tracking-tight">Highlights</h2>
+                  <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
+                    {proj.highlights.map((h) => <li key={h}>{h}</li>)}
+                  </ul>
+                </div>
+              ) : null}
+
+              {proj.kpis?.length ? (
+                <div id="kpis" className="mt-10">
+                  <h2 className="text-xl font-medium tracking-tight">Outcomes & KPIs</h2>
+                  <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
+                    {proj.kpis.map((k) => <li key={k}>{k}</li>)}
+                  </ul>
+                </div>
+              ) : null}
+
+              {proj.challenges?.length ? (
+                <div id="challenges" className="mt-10">
+                  <h2 className="text-xl font-medium tracking-tight">Challenges</h2>
+                  <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
+                    {proj.challenges.map((c) => <li key={c}>{c}</li>)}
+                  </ul>
+                </div>
+              ) : null}
+
+              {(proj.repo || proj.live) ? (
+                <div id="links" className="mt-10 flex flex-wrap gap-3">
+                  {proj.repo && (
+                    <Magnetic>
+                      <a
+                        href={proj.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open GitHub repository for ${proj.title}`}
+                        className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                      >
+                        GitHub
+                      </a>
+                    </Magnetic>
+                  )}
+                  {proj.live && (
+                    <Magnetic>
+                      <a
+                        href={proj.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`View live demo of ${proj.title}`}
+                        className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                      >
+                        Live Demo
+                      </a>
+                    </Magnetic>
+                  )}
+                </div>
+              ) : null}
+            </div>
+
+            {extra?.metrics?.length ? (
+              <div id="metrics" className="mt-12 max-w-4xl mx-auto">
+                <h2 className="text-xl font-medium tracking-tight">Metrics</h2>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                  {extra.metrics.map((m) => (
+                    <div key={m.label} className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 p-4">
+                      <div className="text-xs opacity-70">{m.label}</div>
+                      <div className="text-2xl font-semibold tracking-tight">{m.value}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {extra?.body ? (
+              <div id="case" className="mt-12 max-w-3xl mx-auto">
+                <h2 className="text-xl font-medium tracking-tight">Case Study</h2>
+                <div className="mt-3 prose prose-neutral dark:prose-invert max-w-none">
+                  {extra.body}
+                </div>
+              </div>
+            ) : null}
+
+            {extra?.images?.length ? (
+              <div id="gallery" className="mt-12 max-w-5xl mx-auto">
+                <h2 className="text-xl font-medium tracking-tight">Gallery</h2>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {extra.images.map((img) => (
+                    <div key={img.src} className="overflow-hidden rounded-2xl border border-neutral-200/60 dark:border-neutral-800">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={img.src} alt={img.alt} className="w-full h-auto object-cover" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </div>
+
+          {/* RIGHT: sticky TOC */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-24">
+              <SideToc
+                items={[
+                  { id: "highlights", label: "Highlights" },
+                  { id: "kpis", label: "Outcomes & KPIs" },
+                  { id: "challenges", label: "Challenges" },
+                  ...(extra?.metrics?.length ? [{ id: "metrics", label: "Metrics" }] : []),
+                  ...(extra?.body ? [{ id: "case", label: "Case Study" }] : []),
+                  ...(extra?.images?.length ? [{ id: "gallery", label: "Gallery" }] : []),
+                  ...(proj.repo || proj.live ? [{ id: "links", label: "Links" }] : []),
+                ]}
+              />
+            </div>
+          </aside>
         </div>
-
-        {/* Highlights */}
-        {proj.highlights?.length ? (
-          <div id="highlights" className="mt-10">
-            <h2 className="text-xl font-medium tracking-tight">Highlights</h2>
-            <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
-              {proj.highlights.map((h) => <li key={h}>{h}</li>)}
-            </ul>
-          </div>
-        ) : null}
-
-        {/* KPIs */}
-        {proj.kpis?.length ? (
-          <div id="kpis" className="mt-10">
-            <h2 className="text-xl font-medium tracking-tight">Outcomes & KPIs</h2>
-            <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
-              {proj.kpis.map((k) => <li key={k}>{k}</li>)}
-            </ul>
-          </div>
-        ) : null}
-
-        {/* Challenges */}
-        {proj.challenges?.length ? (
-          <div id="challenges" className="mt-10">
-            <h2 className="text-xl font-medium tracking-tight">Challenges</h2>
-            <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
-              {proj.challenges.map((c) => <li key={c}>{c}</li>)}
-            </ul>
-          </div>
-        ) : null}
-
-        {/* Links */}
-        {(proj.repo || proj.live) ? (
-  <div id="links" className="mt-10 flex flex-wrap gap-3">
-    {proj.repo && (
-      <Magnetic>
-        <a href={proj.repo} target="_blank" rel="noopener noreferrer"
-           aria-label={`Open GitHub repository for ${proj.title}`}
-           className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900">
-          GitHub
-        </a>
-      </Magnetic>
-    )}
-    {proj.live && (
-      <Magnetic>
-        <a href={proj.live} target="_blank" rel="noopener noreferrer"
-           aria-label={`View live demo of ${proj.title}`}
-           className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900">
-          Live Demo
-        </a>
-      </Magnetic>
-    )}
-  </div>
-) : null}
-
-        {/* Extras */}
-        {extra?.metrics?.length ? (
-          <div id="metrics" className="mt-12 max-w-4xl">
-            <h2 className="text-xl font-medium tracking-tight">Metrics</h2>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-              {extra.metrics.map((m) => (
-                <div key={m.label} className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 p-4">
-                  <div className="text-xs opacity-70">{m.label}</div>
-                  <div className="text-2xl font-semibold tracking-tight">{m.value}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : null}
-
-        {extra?.body ? (
-          <div id="case" className="mt-12 max-w-3xl">
-            <h2 className="text-xl font-medium tracking-tight">Case Study</h2>
-            <div className="mt-3 prose prose-neutral dark:prose-invert max-w-none">
-              {extra.body}
-            </div>
-          </div>
-        ) : null}
-
-        {extra?.images?.length ? (
-          <div id="gallery" className="mt-12 max-w-5xl">
-            <h2 className="text-xl font-medium tracking-tight">Gallery</h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {extra.images.map((img) => (
-                <div key={img.src} className="overflow-hidden rounded-2xl border border-neutral-200/60 dark:border-neutral-800">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img.src} alt={img.alt} className="w-full h-auto object-cover" />
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : null}
-      </div>
-    </div>
-
-    {/* TOC column */}
-    <SideToc
-      items={[
-        { id: "highlights", label: "Highlights" },
-        { id: "kpis", label: "Outcomes & KPIs" },
-        { id: "challenges", label: "Challenges" },
-        ...(extra?.metrics?.length ? [{ id: "metrics", label: "Metrics" }] : []),
-        ...(extra?.body ? [{ id: "case", label: "Case Study" }] : []),
-        ...(extra?.images?.length ? [{ id: "gallery", label: "Gallery" }] : []),
-        ...(proj.repo || proj.live ? [{ id: "links", label: "Links" }] : []),
-      ]}
-    />
-  </div>
-</section>
-
+      </section>
     </main>
   );
 }
