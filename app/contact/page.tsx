@@ -1,83 +1,111 @@
 // app/contact/page.tsx
-import Navbar from "@/components/navbar";
-import CopyEmail from "@/components/copy-email";
+"use client";
 
-export const metadata = {
-  title: "Contact — Isaac Elue",
-  description: "Reach out for internships, product work, or collaborations.",
-};
+import Navbar from "@/components/navbar";
 
 export default function ContactPage() {
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText("elueisaac14@gmail.com");
+    } catch {
+      // ignore
+    }
+  };
+
   return (
-    <main>
+    <main className="bg-[#0b1020] text-white">
       <Navbar />
-      <section className="container py-14 md:py-20">
-        <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Contact</h1>
-        <p className="mt-2 text-neutral-600 dark:text-neutral-300 max-w-xl">
-          Open to internships, product work, and collaborations. Pick what suits you.
-        </p>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          <a
-            href="mailto:elueisaac14@gmail.com?subject=Hello%20Isaac&body=Hi%20Isaac%2C%0A%0A"
-            aria-label="Email — elueisaac14@gmail.com"
-            className="group rounded-2xl border border-neutral-200/60 dark:border-neutral-800 p-5 transition hover:-translate-y-0.5 hover:shadow-sm hover:bg-neutral-50/70 dark:hover:bg-neutral-900/60"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-base font-medium tracking-tight">Email</span>
-              <span className="text-xs opacity-60 group-hover:opacity-80 transition">Open</span>
-            </div>
-            <p className="mt-1 text-sm opacity-80">elueisaac14@gmail.com</p>
-          </a>
-
-          <a
-            href="https://www.linkedin.com/in/isaac-elue-122182358"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn — open in new tab"
-            className="group rounded-2xl border border-neutral-200/60 dark:border-neutral-800 p-5 transition hover:-translate-y-0.5 hover:shadow-sm hover:bg-neutral-50/70 dark:hover:bg-neutral-900/60"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-base font-medium tracking-tight">LinkedIn</span>
-              <span className="text-xs opacity-60 group-hover:opacity-80 transition">Open</span>
-            </div>
-            <p className="mt-1 text-sm opacity-80">Let’s connect</p>
-          </a>
-
-          <a
-            href="https://github.com/IsaacElue"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub — open in new tab"
-            className="group rounded-2xl border border-neutral-200/60 dark:border-neutral-800 p-5 transition hover:-translate-y-0.5 hover:shadow-sm hover:bg-neutral-50/70 dark:hover:bg-neutral-900/60"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-base font-medium tracking-tight">GitHub</span>
-              <span className="text-xs opacity-60 group-hover:opacity-80 transition">Open</span>
-            </div>
-            <p className="mt-1 text-sm opacity-80">Projects & code</p>
-          </a>
-
-          <a
-            href="/cv.pdf"
-            aria-label="Download CV (PDF)"
-            className="group rounded-2xl border border-neutral-200/60 dark:border-neutral-800 p-5 transition hover:-translate-y-0.5 hover:shadow-sm hover:bg-neutral-50/70 dark:hover:bg-neutral-900/60"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-base font-medium tracking-tight">Download CV</span>
-              <span className="text-xs opacity-60 group-hover:opacity-80 transition">Open</span>
-            </div>
-            <p className="mt-1 text-sm opacity-80">PDF, 1–2 pages</p>
-          </a>
+      {/* Header */}
+      <section className="py-16 md:py-24">
+        <div className="mx-auto w-full max-w-[1150px] px-6 text-center">
+          <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">Contact</h1>
+          <p className="mt-2 text-neutral-300/90">
+            Open to internships, product work, and collaborations.
+          </p>
         </div>
+      </section>
 
-        <div className="mt-8">
-          <p className="text-sm opacity-70">Quick copy</p>
-          <div className="mt-2">
-            <CopyEmail email="elueisaac14@gmail.com" />
+      {/* Cards */}
+      <section className="pb-20">
+        <div className="mx-auto w-full max-w-[1150px] px-6">
+          <div className="mx-auto grid max-w-[1000px] gap-5 sm:grid-cols-2">
+            {/* Email */}
+            <a
+              href="mailto:elueisaac14@gmail.com"
+              className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-0.5"
+            >
+              <div className="flex items-center justify-between">
+                <h2 className="font-medium tracking-tight">Email</h2>
+                <span className="text-sm text-sky-300">Open</span>
+              </div>
+              <p className="mt-2 text-sm text-neutral-300/90">elueisaac14@gmail.com</p>
+            </a>
+
+            {/* LinkedIn */}
+            <a
+              href="https://www.linkedin.com/in/isaac-elue-122182358/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-0.5"
+            >
+              <div className="flex items-center justify-between">
+                <h2 className="font-medium tracking-tight">LinkedIn</h2>
+                <span className="text-sm text-sky-300">Open</span>
+              </div>
+              <p className="mt-2 text-sm text-neutral-300/90">Let’s connect</p>
+            </a>
+
+            {/* GitHub */}
+            <a
+              href="https://github.com/IsaacElue"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-0.5"
+            >
+              <div className="flex items-center justify-between">
+                <h2 className="font-medium tracking-tight">GitHub</h2>
+                <span className="text-sm text-sky-300">Open</span>
+              </div>
+              <p className="mt-2 text-sm text-neutral-300/90">Projects & code</p>
+            </a>
+
+            {/* CV */}
+            <a
+              href="/cv.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-0.5"
+            >
+              <div className="flex items-center justify-between">
+                <h2 className="font-medium tracking-tight">Download CV</h2>
+                <span className="text-sm text-sky-300">Open</span>
+              </div>
+              <p className="mt-2 text-sm text-neutral-300/90">PDF, 1–2 pages</p>
+            </a>
+          </div>
+
+          {/* Quick copy */}
+          <div className="mx-auto mt-8 flex max-w-[1000px] items-center gap-3">
+            <span className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-neutral-200">
+              elueisaac14@gmail.com
+            </span>
+            <button
+              onClick={copy}
+              className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-neutral-200 hover:bg-white/7 transition"
+            >
+              Copy
+            </button>
           </div>
         </div>
       </section>
+
+      {/* FOOTER (same color family) */}
+      <footer className="border-white/10 py-30">
+        <div className="mx-auto w-full max-w-[1150px] px-6 text-center text-neutral-300/90">
+          © {new Date().getFullYear()} Isaac Elue
+        </div>
+      </footer>
     </main>
   );
 }
