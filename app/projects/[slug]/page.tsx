@@ -210,7 +210,7 @@ export default async function ProjectDetail(
   const extra = extras[slug];
 
   return (
-    <main>
+    <main className="bg-[#0b1020] text-white">
       <ScrollProgress />
       <Navbar />
       <script
@@ -218,55 +218,64 @@ export default async function ProjectDetail(
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <section className="container py-16 md:py-24">
-        {/* two-column layout: content + sticky toc */}
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px] max-w-6xl mx-auto">
-          {/* LEFT: content */}
-          <div>
-            {/* top copy */}
-            <div className="max-w-3xl mx-auto">
-              <p className="text-sm opacity-70">{proj.year}</p>
-              <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">{proj.title}</h1>
-              <p className="mt-3 text-neutral-600 dark:text-neutral-300">{proj.blurb}</p>
+      {/* Page header + two-column body */}
+      <section className="py-16 md:py-24">
+        <div className="mx-auto w-full max-w-[1150px] px-6">
+          {/* Grid: content + sticky TOC */}
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_260px]">
+            {/* LEFT: content */}
+            <div className="mx-auto w-full max-w-[1000px]">
+              <p className="text-sm text-neutral-400">{proj.year}</p>
+              <h1 className="mt-1 text-3xl font-semibold tracking-tight md:text-4xl">
+                {proj.title}
+              </h1>
+              {proj.blurb ? (
+                <p className="mt-3 text-neutral-300/90">{proj.blurb}</p>
+              ) : null}
 
+              {/* Stack pills */}
               <div className="mt-4 flex flex-wrap gap-2">
                 {(proj.stack ?? []).map((t) => (
                   <span
                     key={t}
-                    className="rounded-full border border-neutral-200/60 dark:border-neutral-800 px-3 py-1 text-sm opacity-80"
+                    className="rounded-xl border border-white/10 bg-white/5 px-3 py-1 text-sm text-neutral-200"
                   >
                     {t}
                   </span>
                 ))}
               </div>
 
+              {/* Highlights */}
               {proj.highlights?.length ? (
                 <div id="highlights" className="mt-10">
                   <h2 className="text-xl font-medium tracking-tight">Highlights</h2>
-                  <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
+                  <ul className="mt-3 list-disc space-y-1 pl-5 text-neutral-300/90">
                     {proj.highlights.map((h) => <li key={h}>{h}</li>)}
                   </ul>
                 </div>
               ) : null}
 
+              {/* KPIs */}
               {proj.kpis?.length ? (
                 <div id="kpis" className="mt-10">
                   <h2 className="text-xl font-medium tracking-tight">Outcomes & KPIs</h2>
-                  <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
+                  <ul className="mt-3 list-disc space-y-1 pl-5 text-neutral-300/90">
                     {proj.kpis.map((k) => <li key={k}>{k}</li>)}
                   </ul>
                 </div>
               ) : null}
 
+              {/* Challenges */}
               {proj.challenges?.length ? (
                 <div id="challenges" className="mt-10">
                   <h2 className="text-xl font-medium tracking-tight">Challenges</h2>
-                  <ul className="mt-3 list-disc pl-5 space-y-1 text-neutral-700 dark:text-neutral-300">
+                  <ul className="mt-3 list-disc space-y-1 pl-5 text-neutral-300/90">
                     {proj.challenges.map((c) => <li key={c}>{c}</li>)}
                   </ul>
                 </div>
               ) : null}
 
+              {/* Links */}
               {(proj.repo || proj.live) ? (
                 <div id="links" className="mt-10 flex flex-wrap gap-3">
                   {proj.repo && (
@@ -276,7 +285,7 @@ export default async function ProjectDetail(
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Open GitHub repository for ${proj.title}`}
-                        className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                        className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-neutral-200 hover:bg-white/7 transition"
                       >
                         GitHub
                       </a>
@@ -289,7 +298,7 @@ export default async function ProjectDetail(
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`View live demo of ${proj.title}`}
-                        className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                        className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-neutral-200 hover:bg-white/7 transition"
                       >
                         Live Demo
                       </a>
@@ -297,64 +306,81 @@ export default async function ProjectDetail(
                   )}
                 </div>
               ) : null}
+
+              {/* Metrics */}
+              {extra?.metrics?.length ? (
+                <div id="metrics" className="mt-12">
+                  <h2 className="text-xl font-medium tracking-tight">Metrics</h2>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                    {extra.metrics.map((m) => (
+                      <div
+                        key={m.label}
+                        className="rounded-2xl border border-white/10 bg-white/5 p-4"
+                      >
+                        <div className="text-xs text-neutral-400">{m.label}</div>
+                        <div className="text-2xl font-semibold tracking-tight">
+                          {m.value}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {/* Case Study body */}
+              {extra?.body ? (
+                <div id="case" className="mt-12">
+                  <h2 className="text-xl font-medium tracking-tight">Case Study</h2>
+                  <div className="prose prose-invert mt-3 max-w-none">
+                    {extra.body}
+                  </div>
+                </div>
+              ) : null}
+
+              {/* Gallery */}
+              {extra?.images?.length ? (
+                <div id="gallery" className="mt-12">
+                  <h2 className="text-xl font-medium tracking-tight">Gallery</h2>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    {extra.images.map((img) => (
+                      <div
+                        key={img.src}
+                        className="overflow-hidden rounded-2xl border border-white/10 bg-white/5"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={img.src} alt={img.alt} className="h-auto w-full object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
 
-            {extra?.metrics?.length ? (
-              <div id="metrics" className="mt-12 max-w-4xl mx-auto">
-                <h2 className="text-xl font-medium tracking-tight">Metrics</h2>
-                <div className="mt-3 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-                  {extra.metrics.map((m) => (
-                    <div key={m.label} className="rounded-2xl border border-neutral-200/60 dark:border-neutral-800 p-4">
-                      <div className="text-xs opacity-70">{m.label}</div>
-                      <div className="text-2xl font-semibold tracking-tight">{m.value}</div>
-                    </div>
-                  ))}
-                </div>
+            {/* RIGHT: sticky TOC */}
+            <aside className="hidden lg:block">
+              <div className="sticky top-24">
+                <SideToc
+                  items={[
+                    { id: "highlights", label: "Highlights" },
+                    { id: "kpis", label: "Outcomes & KPIs" },
+                    { id: "challenges", label: "Challenges" },
+                    ...(extra?.metrics?.length ? [{ id: "metrics", label: "Metrics" }] : []),
+                    ...(extra?.body ? [{ id: "case", label: "Case Study" }] : []),
+                    ...(extra?.images?.length ? [{ id: "gallery", label: "Gallery" }] : []),
+                    ...(proj.repo || proj.live ? [{ id: "links", label: "Links" }] : []),
+                  ]}
+                />
               </div>
-            ) : null}
-
-            {extra?.body ? (
-              <div id="case" className="mt-12 max-w-3xl mx-auto">
-                <h2 className="text-xl font-medium tracking-tight">Case Study</h2>
-                <div className="mt-3 prose prose-neutral dark:prose-invert max-w-none">
-                  {extra.body}
-                </div>
-              </div>
-            ) : null}
-
-            {extra?.images?.length ? (
-              <div id="gallery" className="mt-12 max-w-5xl mx-auto">
-                <h2 className="text-xl font-medium tracking-tight">Gallery</h2>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  {extra.images.map((img) => (
-                    <div key={img.src} className="overflow-hidden rounded-2xl border border-neutral-200/60 dark:border-neutral-800">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={img.src} alt={img.alt} className="w-full h-auto object-cover" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
+            </aside>
           </div>
-
-          {/* RIGHT: sticky TOC */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-24">
-              <SideToc
-                items={[
-                  { id: "highlights", label: "Highlights" },
-                  { id: "kpis", label: "Outcomes & KPIs" },
-                  { id: "challenges", label: "Challenges" },
-                  ...(extra?.metrics?.length ? [{ id: "metrics", label: "Metrics" }] : []),
-                  ...(extra?.body ? [{ id: "case", label: "Case Study" }] : []),
-                  ...(extra?.images?.length ? [{ id: "gallery", label: "Gallery" }] : []),
-                  ...(proj.repo || proj.live ? [{ id: "links", label: "Links" }] : []),
-                ]}
-              />
-            </div>
-          </aside>
         </div>
       </section>
+
+      <footer className="border-t border-white/10 py-10">
+        <div className="mx-auto w-full max-w-[1150px] px-6 text-center text-neutral-300/90">
+          © {new Date().getFullYear()} Isaac Elue
+        </div>
+      </footer>
     </main>
   );
 }

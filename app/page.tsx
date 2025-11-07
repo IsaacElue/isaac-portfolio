@@ -1,5 +1,6 @@
 // app/page.tsx
 "use client";
+import Image from "next/image";
 
 import Navbar from "@/components/navbar";
 import Link from "next/link";
@@ -91,11 +92,17 @@ export default function Page() {
             <div className="relative">
               <div className="absolute inset-0 scale-125 rounded-full bg-sky-500/20 blur-3xl" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/isaac-image.jpg"
-                alt="Isaac Elue"
-                className="relative z-10 h-56 w-56 rounded-full border-2 border-sky-500/30 object-cover shadow-lg md:h-64 md:w-64"
-              />
+      
+
+<Image
+  src="/isaac-image.jpg"
+  alt="Isaac Elue"
+  width={256}
+  height={256}
+  className="relative z-10 w-56 h-56 md:w-64 md:h-64 rounded-full object-cover border-2 border-sky-500/30 shadow-lg"
+/>
+
+
             </div>
           </div>
         </div>
